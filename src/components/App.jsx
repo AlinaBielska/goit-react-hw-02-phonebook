@@ -18,7 +18,7 @@ export class App extends Component {
 
   render() {
     const { contacts } = this.state;
-    const name = this.state;
+    const { name } = this.state;
     const onInputChange = this.onInputChange;
     const onSubmitContact = this.onSubmitContact;
 
@@ -38,7 +38,13 @@ export class App extends Component {
         </label>
         <button type="submit">Add contact</button>
       </form>
-      <ul>Contacts</ul>
+      <ul>Contacts
+        {contacts.map(contact => {
+          return (
+            <li>{contact}</li>
+          )
+        })}
+      </ul>
     </div>
   );
 }
