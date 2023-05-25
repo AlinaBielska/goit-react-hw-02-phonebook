@@ -1,62 +1,89 @@
 import React, { Component } from "react";
+import { nanoid } from 'nanoid';
 
 
 export class App extends Component { 
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
     name: '',
     number: ''
   }
 
-  onInputChangeName = evt => {
-    this.setState({ name: evt.target.value });
+  onInputChange = (inputName) => (evt) => {
+    this.setState({
+      [inputName]: evt.target.value,
+    });
   }
-  onInputChangeNumber = evt => {
-    this.setState({ number: evt.target.value });
+  onInputChangeFilter = evt => {
+    this.setState({ filter: evt.target.value });
   }
   onSubmitContact = evt => {
     evt.preventDefault();
     const { name, number, contacts } = this.state;
-    this.setState({ contacts: [...contacts, { name, number }] });
+    this.setState({
+      contacts: [...contacts, { name, number }],
+      name: "",
+      number: "",
+    });
   }
 
   render() {
     const { contacts } = this.state;
     const { name } = this.state;
     const { number } = this.state;
-    const onInputChangeName = this.onInputChangeName;
-    const onInputChangeNumber = this.onInputChangeNumber;
+    const { filter } = this.state;
+    const idName = nanoid();
+    const idNumber = nanoid();
+    const idFilter = nanoid();
+    const onInputChange = this.onInputChange;
+    const onInputChangeFilter = this.onInputChangeFilter;
     const onSubmitContact = this.onSubmitContact;
 
     return (
       <div>
+        <h1>Phonebook</h1>
         <form onSubmit={onSubmitContact}>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={onInputChangeName}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required />
-          </label>
-          <label>
-            Number
-            <input
-              type="tel"
-              name="number"
-              value={number}
-              onChange={onInputChangeNumber}
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
-            />
-          </label>
+          <label htmlFor={idName}>Name</label>
+          <input
+            id={idName}
+            type="text"
+            name="name"
+            value={name}
+            onChange={onInputChange('name')}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+          />
+          <label htmlFor={idNumber}>Number</label>
+          <input
+            id={idNumber}
+            type="tel"
+            name="number"
+            value={number}
+            onChange={onInputChange('number')}
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+          />
           <button type="submit">Add contact</button>
         </form>
-        <ul>Contacts
+        <h2>Contacts</h2>
+        <label htmlFor={idFilter}>Find contacts by name</label>
+        <input
+          id={idFilter}
+          type="text"
+          name="find"
+          value={filter}
+          onChange={onInputChangeFilter}
+          title="Find contacts by name"
+        />
+        <ul>
           {contacts.map(contact => {
             return (
               <li>{contact.name}: {contact.number}</li>
