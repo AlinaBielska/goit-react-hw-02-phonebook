@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ContactForm from "./ContactForm/ContactForm";
-import { nanoid } from 'nanoid';
+import Filter from './Filter/Filter';
+import ContactList from "./ContactList/ContactList";
+// import { nanoid } from 'nanoid';
 
 
 export class App extends Component { 
@@ -13,7 +15,6 @@ export class App extends Component {
     ],
     filter: ''
   }
-
   
   onInputChangeFilter = evt => {
     this.setState({ filter: evt.target.value });
@@ -30,32 +31,14 @@ export class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
-    const idFilter = nanoid();
-    const onInputChangeFilter = this.onInputChangeFilter;
 
     return (
       <div>
         <h1>Phonebook</h1>
         <ContactForm contacts={contacts} onSubmitContact={this.onSubmitContact}></ContactForm>
         <h2>Contacts</h2>
-        <label htmlFor={idFilter}>Find contacts by name</label>
-        <input
-          id={idFilter}
-          type="text"
-          name="find"
-          value={filter}
-          onChange={onInputChangeFilter}
-          title="Find contacts by name"
-        />
-        <ul>
-          {contacts
-            .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
-            .map(contact => {
-            return (
-              <li key={nanoid()}>{contact.name}: {contact.number}</li>
-            )
-          })}
-        </ul>
+        <Filter filter={filter} onInputChangeFilter={this.onInputChangeFilter}></Filter>
+        <ContactList contacts={contacts} filter={filter}></ContactList>
       </div>
     );
 }
