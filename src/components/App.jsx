@@ -84,9 +84,11 @@ export class App extends Component {
           title="Find contacts by name"
         />
         <ul>
-          {contacts.map(contact => {
+          {contacts
+            .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
+            .map(contact => {
             return (
-              <li>{contact.name}: {contact.number}</li>
+              <li key={nanoid()}>{contact.name}: {contact.number}</li>
             )
           })}
         </ul>
