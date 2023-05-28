@@ -9,9 +9,10 @@ class Filter extends Component {
         const { filter, onInputChangeFilter } = this.props;
 
         return (
-            <>
-                <label htmlFor={idFilter}>Find contacts by name</label>
+            <div className={css.filter}>
+                <label className={css.filterLabel} htmlFor={idFilter}>Find contacts by name</label>
                 <input
+                    className={css.filterInput}
                     id={idFilter}
                     type="text"
                     name="find"
@@ -19,7 +20,7 @@ class Filter extends Component {
                     onChange={onInputChangeFilter}
                     title="Find contacts by name"
                 />
-            </>
+            </div>
         );
     }
 };

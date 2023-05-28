@@ -9,7 +9,7 @@ class ContactList extends Component {
         const { contacts, filter, deleteContact } = this.props;
 
         return (
-            <ul>
+            <ul className={css.contactList} >
                 {contacts
                     .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
                     .map(contact => {

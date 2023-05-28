@@ -4,12 +4,15 @@ import css from './ContactListItem.module.css';
 const ContactListItem = ({ id, name, number, deleteContact }) => {
     return (
         <>
-            <li>{name}: {number}</li>
-            <button
-                type="button"
-                onClick={() => deleteContact(id)}>
-                X
-            </button>
+            <li className={css.contactItem} >
+                <span>{name}: {number}</span>
+                <button
+                    className={css.contactButton}
+                    type="button"
+                    onClick={() => deleteContact(id)}>
+                    X
+                </button>
+            </li>
         </>
     );
 };
