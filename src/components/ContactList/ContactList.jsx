@@ -6,7 +6,7 @@ import ContactListItem from "components/ContactListItem/ContactListItem";
 
 class ContactList extends Component {
     render() {
-        const { contacts, filter } = this.props;
+        const { contacts, filter, deleteContact } = this.props;
 
         return (
             <ul>
@@ -17,15 +17,16 @@ class ContactList extends Component {
                         return (
                             <ContactListItem
                                 key={key}
+                                id={contact.id}
                                 name={contact.name}
                                 number={contact.number}
+                                deleteContact={deleteContact}
                             />
                         )
                     })}
             </ul>
         );
     }
-
 }
 
 export default ContactList

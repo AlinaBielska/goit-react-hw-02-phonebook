@@ -19,8 +19,13 @@ class ContactForm extends Component {
         evt.preventDefault();
         const { onSubmitContact, contacts } = this.props;
         const { name, number } = this.state;
-        const contact = {name, number}
-        onSubmitContact(contact);
+        const contact = { name, number }
+        if (contacts.find((e) => e.name === contact.name)) {
+            alert(`${name} is already in contact!`);
+        } else {
+            onSubmitContact(contact);
+        }
+        
     }
 
     render() {

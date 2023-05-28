@@ -1,18 +1,12 @@
 import React, { Component } from "react";
+import { nanoid } from 'nanoid';
 import ContactForm from "./ContactForm/ContactForm";
 import Filter from './Filter/Filter';
 import ContactList from "./ContactList/ContactList";
-// import { nanoid } from 'nanoid';
-
 
 export class App extends Component { 
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: ''
   }
   
@@ -21,12 +15,15 @@ export class App extends Component {
   }
   onSubmitContact = contact => {
     const { contacts } = this.state;
-    const { name, number } = this.props;
+    const newContact = {...contact, id: nanoid()}
     this.setState({
-      contacts: [...contacts, { name, number }],
+      contacts: [...contacts, newContact],
       name: "",
       number: "",
     });
+  }
+  deleteContact = contactID => {
+    this.setState({ contacts: this.state.contacts.filter(el => el.id !== contactID) });
   }
 
   render() {
@@ -38,7 +35,7 @@ export class App extends Component {
         <ContactForm contacts={contacts} onSubmitContact={this.onSubmitContact}></ContactForm>
         <h2>Contacts</h2>
         <Filter filter={filter} onInputChangeFilter={this.onInputChangeFilter}></Filter>
-        <ContactList contacts={contacts} filter={filter}></ContactList>
+        <ContactList contacts={contacts} filter={filter} deleteContact={this.deleteContact}></ContactList>
       </div>
     );
 }

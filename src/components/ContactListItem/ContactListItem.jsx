@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types';
 import css from './ContactListItem.module.css';
 
-const ContactListItem = ({name, number}) => {
+const ContactListItem = ({ id, name, number, deleteContact }) => {
     return (
-        <li>{name}: {number}</li>
+        <>
+            <li>{name}: {number}</li>
+            <button
+                type="button"
+                onClick={() => deleteContact(id)}>
+                X
+            </button>
+        </>
     );
 }
 
