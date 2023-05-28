@@ -27,6 +27,16 @@ class ContactList extends Component {
             </ul>
         );
     }
-}
+};
+
+ContactList.propTypes = {
+    contacts: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+    })),
+    filter: PropTypes.string.isRequired,
+    deleteContact: PropTypes.func.isRequired,
+};
 
 export default ContactList

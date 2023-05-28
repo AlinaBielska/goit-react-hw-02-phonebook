@@ -22,6 +22,11 @@ class Filter extends Component {
             </>
         );
     }
-}
+};
+
+Filter.propTypes = {
+    filter: PropTypes.string.isRequired,
+    onInputChangeFilter: PropTypes.func.isRequired,
+};
 
 export default Filter
