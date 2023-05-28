@@ -24,8 +24,11 @@ class ContactForm extends Component {
             alert(`${name} is already in contact!`);
         } else {
             onSubmitContact(contact);
+            this.setState({
+                name: "",
+                number: "",
+            })
         }
-        
     };
 
     render() {
