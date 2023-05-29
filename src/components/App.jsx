@@ -18,17 +18,17 @@ export class App extends Component {
   
   onInputChangeFilter = evt => {
     this.setState({ filter: evt.target.value });
-  }
+  };
   onSubmitContact = contact => {
     const { contacts } = this.state;
-    const newContact = {...contact, id: nanoid()}
+    const newContact = { ...contact, id: nanoid() }
     this.setState({
       contacts: [...contacts, newContact]
     });
-  }
+  };
   deleteContact = contactID => {
     this.setState({ contacts: this.state.contacts.filter(el => el.id !== contactID) });
-  }
+  };
 
   render() {
     const { contacts, filter } = this.state;
@@ -37,11 +37,11 @@ export class App extends Component {
       <div className={css.body}>
         <h1 className={css.title}>Phonebook</h1>
         <div className={css.wrapper}>
-          <ContactForm contacts={contacts} onSubmitContact={this.onSubmitContact}></ContactForm>
+          <ContactForm contacts={contacts} onSubmitContact={this.onSubmitContact} />
           <div className={css.contacts}>
             <h2 className={css.contactsTitle} >Contacts</h2>
-            <Filter filter={filter} onInputChangeFilter={this.onInputChangeFilter}></Filter>
-            <ContactList contacts={contacts} filter={filter} deleteContact={this.deleteContact}></ContactList>
+            <Filter filter={filter} onInputChangeFilter={this.onInputChangeFilter} />
+            <ContactList contacts={contacts} filter={filter} deleteContact={this.deleteContact} />
           </div>
         </div>
       </div>
